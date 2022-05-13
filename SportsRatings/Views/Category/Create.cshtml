@@ -1,0 +1,31 @@
+﻿@model SportsRatings.Models.SportCategoriesModel
+
+@{
+    ViewData["Title"] = "Add Category";
+}
+<div class="col-12 bg-light pt-1 pb-1 border text-center">
+    <h1 class="text-info">CREATE</h1>
+    <h2>your new categories of sports</h2>
+</div>
+<hr />
+<div class="row">
+    <div class="col-lg-6">
+        <form method="post" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label mb-2" asp-for="Name"></label>
+                <input class="form-control" asp-for="Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <br />
+            <div>
+                <input class="btn btn-info text-white col-4" type="submit" value="Create" />
+                <a class="btn btn-success float-end col-4" asp-controller="Category" asp-action="GetAllCategories">Back to Categories</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
