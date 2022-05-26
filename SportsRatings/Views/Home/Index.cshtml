@@ -11,29 +11,31 @@
         Любые виды спорта, все доступные фантазии дисциплины!<br />         
     </p>
     <br />
-    <p>
-        Создание вашего личного рейтинга осуществляются всего в несколько шагов:
-        <ol>
-            <li>Выберите одну из доступных категорий <b>ИЛИ</b> создайте свою собственную...</li>
-            <li>Добавьте новый вид спорта...</li>
-            <li>Добавьте категории, по которым хотите осуществлять оценку...</li>
-            <li>Начните заполнение вашего нового рейтинга, добавляя в него игроков и выставьте им оценки!</li>
-        </ol>
-    </p>
+    <div class="border col-8 p-2">
+        <p>
+            Создание вашего личного рейтинга осуществляются всего в несколько шагов:
+            <ol>
+                <li>Выберите одну из доступных категорий <b>ИЛИ</b> создайте свою собственную...</li>
+                <li>Добавьте новый вид спорта...</li>
+                <li>Добавьте категории, по которым хотите осуществлять оценку...</li>
+                <li>Начните заполнение вашего нового рейтинга, добавляя в него игроков и выставьте им оценки!</li>
+            </ol>
+        </p>
+    </div>
     <br />
     <p>
         После того, как вы добавите рейтинг, он будет сохранен в вашей личной базе.<br />
         Вы сможете вернуться к рейтингу в любое время, и вы всегда будете иметь доступ к редактированию данных.
     </p>
     <br />
-    <h2 class="text-center">Дерзайте!</h2>
+    <h3>Дерзайте!</h3>
 </div>
-<div class="container">
-    <form method="post" class="btn-group">
-        <div class="text-white">
-            <a class="btn btn-info" asp-controller="Category" asp-action="Create">ADD NEW CATEGORY</a>
-            <a class="btn btn-success" asp-controller="Sport" asp-action="Create" >ADD NEW SPORT</a>
-            <a class="btn btn-warning" asp-controller="Category" asp-action="GetAllCategories">CATEGORIES</a>
-        </div>
+<br />
+<div class="container-lg">
+    <form method="get">
+        <a class="btn btn-primary col-2" asp-controller="Category" asp-action="Create">ADD NEW CATEGORY</a>
+        <a class="btn btn-info text-white col-2" asp-controller="Sport" asp-action="Create" >ADD NEW SPORT</a>
+        <a class="btn btn-warning text-white col-2" asp-controller="Sport" asp-action="GetAllSports" >VIEW ALL SPORTS</a>
+        <a class="btn btn-secondary text-white col-2" asp-controller="Category" asp-action="GetAllCategories">VIEW ALL CATEGORIES</a>        
     </form>
 </div>

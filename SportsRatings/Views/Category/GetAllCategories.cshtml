@@ -1,35 +1,49 @@
-﻿@model IEnumerable<SportsRatings.Models.SportCategoriesModel>
+﻿@model IEnumerable<SportsRatings.Models.CategoriesModel>
 
 @{
     ViewData["Title"] = "Categories";
 }
 
-<h1 class="p-2 border">YOUR CATEGORIES</h1>
-
+<div class="container">
+    <h1 class="p-2">YOUR CATEGORIES</h1>
+</div>
+<hr />
+<br />
+<div>
+    <a class="btn btn-info text-white col-2" asp-action="Create">CREATE NEW CATEGORY</a>
+    <a class="btn btn-secondary offset-1 col-2" asp-controller="Home" asp-action="Index">Back to the Main Page</a>
+</div>
+<br />
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
+            <th class="col-3">
+                CATEGORIES
             </th>
-            <th></th>
+            <th class="text-center col-4">
+                DESCRIPTION
+            </th>
+            <th class="text-center">
+                ACTIONS
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="bg-info">
+                    <b>@Html.DisplayFor(modelItem => item.Name)</b>
+                </td>
+                <td class="bg-light">
+                    @item.Description
+                </td>
+                <td>
+                    <a class="btn btn-primary offset-2 mb-1 text-white col-8" asp-action="GetSportsInCategory" asp-route-id="@item.Id">Sports In Category</a><br /> <!--Добавить метод GetSportsInCategory в SportController-->
+                    <a class="btn btn-secondary offset-2 mb-1 col-8" asp-action="Edit" asp-route-id="@item.Id">Edit</a><br />
+                    <a class="btn btn-danger offset-2 mb-1 text-white col-8" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
-<div>
-    <a class="btn btn-info text-white col-3" asp-action="Create">CREATE NEW CATEGORY</a>
-</div>

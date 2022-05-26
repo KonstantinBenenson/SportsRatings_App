@@ -11,7 +11,7 @@ namespace SportsRatings
 
         }
 
-        public DbSet<SportCategoriesModel> Categories { get; set; }
+        public DbSet<CategoriesModel> Categories { get; set; }
         public DbSet<SportsModel> Sports { get; set; }
     }
 }

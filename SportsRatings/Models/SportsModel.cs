@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SportsRatings.Models
 {
@@ -11,12 +12,15 @@ namespace SportsRatings.Models
         [Required]
         public string Name { get; set; } = String.Empty;
 
-        [Range(1,5)]
+        public string? Description { get; set; } 
+
+        [Range(1, 5)]
         [DisplayName("Rate of Sport")]
-        public int PersonalRate { get; set; }
+        public int PersonalRate { get; set; } //How much a user loves this sport
 
         public int CategoryId { get; set; }
 
-        public SportCategoriesModel Caterogy { get; set; } = null!;
+        [ForeignKey("CategoryId")]
+        public CategoriesModel Category { get; set; } = null!;
     }
 }

@@ -19,7 +19,7 @@ namespace SportsRatings.Controllers
             _spService = ss;
         }
 
-        // GET: CategoryController/Create
+
         public ActionResult Create()
         {
             return View();
@@ -43,23 +43,22 @@ namespace SportsRatings.Controllers
         //        return View();
         //    }            
         //}
-
-        // POST: CategoryController/Create
+                
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(SportCategoriesModel obj)
+        public async Task<IActionResult> CreatePOST(CategoriesModel obj)
         {
             if (!ModelState.IsValid)
                 return View();
 
             if(await _catService.CheckIfExistsAsync(obj.Name)) //If object exists - returns TRUE
-                return View();
+                return View(nameof(Create));
 
             try
             {
                 await _catService.AddAsync(obj);
                 TempData["Message"] = $"New category {obj.Name} was successfully created."; //?????????
-                return View();
+                return RedirectToAction(nameof(GetAllCategories));
             }
             catch
             {
@@ -68,7 +67,7 @@ namespace SportsRatings.Controllers
             }
         }
 
-        // GET
+        // GET: Сategories/GetAllCategories
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await _catService.GetAllCategoriesAsync();
@@ -76,46 +75,39 @@ namespace SportsRatings.Controllers
         }
 
         // GET: CategoryController/Category
-        public async Task<IActionResult> GetCategoryInfo(int id)
-        {
-            try
-            {
-                var categoryInfo = await _spService.GetCategoryDetails(id);
-                return View(categoryInfo);
+        //public async Task<IActionResult> GetCategoryInfo(int id)
+        //{
+        //    try
+        //    {
+        //        var categoryInfo = await _spService.GetCategoryDetails(id);
+        //        return View(categoryInfo);
 
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}                      
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || id == 0)
+                return View();
+
+            var category = await _catService.GetCategoryAsync(id);
+
+            if (category == null)
+                return View();
+
+            return View(category);
         }
 
-        // GET: CategoryController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }               
-        
-
-        // GET: CategoryController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CategoryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> EditPOST(int id, CategoriesModel obj)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await _catService.UpdateAsync(id, obj);
+            return RedirectToAction(nameof(GetAllCategories)); //вывод сообщения в клиент об успешном обновлении ИЛИ ошибке?
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -125,16 +117,14 @@ namespace SportsRatings.Controllers
 
             try
             {
-                var category = await _catService.ReturnCategoryAsync(id);
-                if(category == null)
-                    return NotFound();
+                var category = await _catService.GetCategoryAsync(id);
 
                 return View(category);
             }
             catch (Exception ex)
             {
                 //Logging
-                return View();
+                return RedirectToAction(nameof(GetAllCategories));
                 throw new ArgumentException(ex.Message);
             }            
         }
@@ -147,13 +137,13 @@ namespace SportsRatings.Controllers
             if (id == null || id == 0)
                 return NotFound();
 
-            var category = await _catService.ReturnCategoryAsync(id);
+            var category = await _catService.GetCategoryAsync(id);
 
             if(category == null)
                 return NotFound(category);
 
             await _catService.RemoveAsync(category);
-            return RedirectToAction("GetAllCategories");
+            return RedirectToAction(nameof(GetAllCategories));
         }
     }
 }

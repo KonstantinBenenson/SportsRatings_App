@@ -1,0 +1,33 @@
+﻿@model CategoriesModel
+
+@{
+    ViewData["Title"] = "EDIT";
+}
+
+<div>
+    <h1>EDIT PAGE FOR @Model.Name.ToUpper() CATEGORY</h1>
+</div>
+
+<div class="container">
+    <div class="col-8">
+        <form method="post" asp-action="EditPOST">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+                <!--Место для изменения списка видов спорта-->
+             <br />
+                <div class="form-group">
+                <input type="submit" class="btn btn-success text-white" value="UPDATE" />
+            </div>
+        </form>
+    </div>
+
+</div>

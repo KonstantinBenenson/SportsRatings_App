@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportsRatings;
 
@@ -10,9 +11,10 @@ using SportsRatings;
 namespace SportsRatings.Migrations
 {
     [DbContext(typeof(SrDbContext))]
-    partial class SrDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220524152920_AddDescriptionField")]
+    partial class AddDescriptionField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

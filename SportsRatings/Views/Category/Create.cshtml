@@ -1,4 +1,4 @@
-﻿@model SportsRatings.Models.SportCategoriesModel
+﻿@model SportsRatings.Models.CategoriesModel
 
 @{
     ViewData["Title"] = "Add Category";
@@ -9,23 +9,39 @@
 </div>
 <hr />
 <div class="row">
-    <div class="col-lg-6">
-        <form method="post" asp-action="Create">
+    <div class="col-lg">
+        <form method="post" asp-action="CreatePOST">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label class="control-label mb-2" asp-for="Name"></label>
-                <input class="form-control" asp-for="Name" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="form-group col-md-6">
+                <div>
+                    <label class="control-label mb-2" asp-for="Name"></label>
+                    <input class="form-control" asp-for="Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div>
+                    <div class="form-group my-2">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                </div>
             </div>
             <br />
             <div>
-                <input class="btn btn-info text-white col-4" type="submit" value="Create" />
-                <a class="btn btn-success float-end col-4" asp-controller="Category" asp-action="GetAllCategories">Back to Categories</a>
+                <input class="btn btn-info text-white col-2" type="submit" value="CREATE" />
             </div>
         </form>
+        <br />
+        <br />
+        <div>
+            <a class="btn btn-success col-2" asp-controller="Category" asp-action="GetAllCategories">Back to Categories</a>
+            <a class="btn btn-secondary ms-5 col-2" asp-controller="Home" asp-action="Index">Back to Main Page</a>
+        </div>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 }
