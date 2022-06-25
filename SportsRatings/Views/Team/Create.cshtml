@@ -1,0 +1,48 @@
+﻿@model SportsRatings.Models.ViewModels.CreateTeamVM
+@{
+    ViewData["Title"] = "Create";
+}
+<div>
+    <h1>Create new TEAM</h1>
+</div>
+<hr />
+<br />
+<div class="containter-lg-12">
+    <div class="col-lg-6">
+        <form method="post" action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Team.Name"></label>
+                <input class="form-control" asp-for="Team.Name" />
+                <span asp-validation-for="Team.Name"></span>
+            </div>
+            <div class="form-group col-lg-6 mt-2">
+                <label class="control-label" asp-for="Team.RegionId"></label>
+                <select class="form-select" asp-for="Team.RegionId" asp-items="Model.Regions">
+                    <option selected disabled>-- Choose a Region --</option>
+                </select>
+                <span asp-validation-for="Team.RegionId"></span>
+            </div>
+            <div class="form-group col-lg-6 mt-2">
+                <label class="control-label" asp-for="Team.SportId"></label>
+                <select class="form-select" asp-for="Team.SportId" asp-items="Model.Sports">
+                    <option selected disabled>-- Choose a Region --</option>
+                </select>
+                <span asp-validation-for="Team.SportId"></span>
+            </div>
+            <br />
+            <br />
+            <!--Buttons-->
+            <div class="form-group">
+                <input type="submit" value="CREATE" class="btn btn-primary col-lg-4" />
+            </div>
+            <br />
+            <br />
+            <div>
+                <a asp-action="GetAllTeams" class="btn btn-outline-info col-lg-4 me-3">VIEW TEAMS</a>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary col-lg-4">Back to the Main Page</a>
+            </div>
+        </form>
+    </div>
+</div>
+

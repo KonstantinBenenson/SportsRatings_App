@@ -11,11 +11,11 @@ namespace SportsRatings.Models
 
         [Required]
         [DisplayName("CATEGORY NAME")]
-        public string Name { get; set; } = String.Empty;
+        public string Name { get; set; } = null!;
 
         [DisplayName("CATEGORY DESCRIPTION")]
-        public string? Description { get; set; }
+        public string Description { get; set; }
 
-        public IEnumerable<SportsModel>? Sports { get; set; } = null!;
+        public IEnumerable<SportsModel> Sports { get; set; } = null!;
     }
 }

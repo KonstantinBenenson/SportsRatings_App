@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using SportsRatings.Models;
+using SportsRatings.Models.ViewModels;
 
 namespace SportsRatings.Services
 {
@@ -13,19 +15,27 @@ namespace SportsRatings.Services
 
         public async Task<IEnumerable<SportsModel>> GetAllSportsAsync()
         {
-            var sports = await _context.Sports.ToListAsync();
+            var sports = await _context.Sports.Include(x => x.Category).ToListAsync();
             return sports;
         }
 
-        public async Task<IEnumerable<SportsModel>> GetAllSportsInCategoryAsync(int id)
+        public async Task<GetSportsInCategoryVM> GetAllSportsInCategoryAsync(int id)
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
-            var sports = category.Sports.ToList();
+            var sports = await _context.Sports.Where(x => x.CategoryId == id).ToListAsync();
 
-            return sports;
+            var sportsVM = new GetSportsInCategoryVM
+            {
+                Category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id),
+                Sports = sports
+            };
+
+            if (sports == null)
+                throw new ArgumentNullException(nameof(sports));
+
+            return sportsVM;
         }
 
-        public async Task<SportsModel> GetSportDetails(int id)
+        public async Task<SportsModel> GetSportDetailsAsync(int id) //?
         {
             var sports = await _context.Sports.FindAsync(id);
 
@@ -34,25 +44,42 @@ namespace SportsRatings.Services
 
             return sports;
         }
+        public CreateSportVM GetCategoriesList()
+        {
+            CreateSportVM sportsVM = new CreateSportVM()
+            {
+                Sport = new SportsModel(),
+                Categories = _context.Categories.Select(c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                })
+            };
+            return sportsVM;
+        }
 
-        public async Task<SportsModel> ReturnSportAsync(int? id)
+        public async Task<SportsModel> GetSportAsync(int? id)
         {
             var sport = await _context.Sports.FirstOrDefaultAsync(c => c.Id == id);
 
-            if(sport == null)
+            if (sport == null)
                 throw new ArgumentNullException(nameof(sport));
 
             return sport;
-        }        
+        }
 
         public async Task AddAsync(SportsModel obj)
         {
-            if (obj == null)
-                throw new ArgumentNullException(nameof(obj));
-
             await _context.Sports.AddAsync(obj);
             await _context.SaveChangesAsync();
         }
+
+        //public async Task AddToCategoryAsync(int id, SportsModel obj)
+        //{
+        //    var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+
+
+        //}
 
         public async Task RemoveAsync(SportsModel obj)
         {

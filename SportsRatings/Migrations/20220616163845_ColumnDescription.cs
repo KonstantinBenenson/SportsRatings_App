@@ -4,19 +4,19 @@
 
 namespace SportsRatings.Migrations
 {
-    public partial class AddDescriptionField : Migration
+    public partial class ColumnDescription : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
                 name: "Description",
-                table: "Sports",
+                table: "Teams",
                 type: "nvarchar(max)",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "Description",
-                table: "Categories",
+                name: "Background",
+                table: "Players",
                 type: "nvarchar(max)",
                 nullable: true);
         }
@@ -25,11 +25,11 @@ namespace SportsRatings.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "Description",
-                table: "Sports");
+                table: "Teams");
 
             migrationBuilder.DropColumn(
-                name: "Description",
-                table: "Categories");
+                name: "Background",
+                table: "Players");
         }
     }
 }

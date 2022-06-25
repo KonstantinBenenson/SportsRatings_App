@@ -1,16 +1,19 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SportsRatings.Models;
+using SportsRatings.Models.ViewModels;
 using SportsRatings.Services;
 
 namespace SportsRatings.Controllers
 {
+    [Controller]
+    [Route("{controller}/{action}")]
     public class SportController : Controller
     {
         private readonly SportServices _sService;
-        public SportController(SportServices sService)
+        public SportController(SportServices sService) //добавление сервиса для категорий ради наполнения SelectListItem, надо переделать?
         {
-            _sService = sService;   
+            _sService = sService;
         }
 
         public async Task<IActionResult> GetAllSports()
@@ -19,96 +22,57 @@ namespace SportsRatings.Controllers
             return View(sports);
         }
 
-        // GET: SportController
-        [HttpGet]
-        public async Task<IActionResult> GetSportsInCategory(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSportsInCategory(int id) //+
         {
-            var sports = await _sService.GetAllSportsInCategoryAsync(id);
+            var sportsVM = await _sService.GetAllSportsInCategoryAsync(id);
 
-            if(sports == null)
+            if(sportsVM == null)
                 return RedirectToAction("GetAllCategories", "Category");
 
-            return View(sports);
+            return View(sportsVM);
         }
 
-        // GET: SportController/2
-        [HttpGet("{id}")]
-        public IActionResult GetSport(int id)
+        public IActionResult Create()
         {
-            return View();
+            var createSportVM = _sService.GetCategoriesList();
+            return View(createSportVM);
         }
 
-
-        // GET: SportController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-
-        // GET: SportController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: SportController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePost(IFormCollection collection)
+        public async Task<IActionResult> Create(CreateSportVM obj) //Почему ModelState выдает False, если все условия валидации соблюдены?
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            //if (!ModelState.IsValid)
+            //    return View(obj);            
+
+            await _sService.AddAsync(obj.Sport);
+            return RedirectToAction(nameof(GetAllSports));
         }
 
-
-        // GET: SportController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: SportController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
 
-        // GET: SportController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: SportController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeletePost(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
     }
 }

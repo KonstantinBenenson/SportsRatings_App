@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using SportsRatings.Models;
+using SportsRatings.Models.ViewModels;
 
 namespace SportsRatings.Services
 {
@@ -21,7 +23,7 @@ namespace SportsRatings.Services
         {
             var categories = await _context.Categories.ToListAsync();
             return categories;
-        }
+        }      
 
         public async Task AddAsync(CategoriesModel obj)
         {

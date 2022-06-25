@@ -1,0 +1,54 @@
+﻿@model SportsRatings.Models.ViewModels.GetTeamsInSportVM
+
+@{
+    ViewData["Title"] = "Teams in Sport";
+}
+
+<div>
+    <h1>Teams in "@Model.Sport.Name"</h1>
+</div>
+<br />
+<br />
+<div class="container-lg-12">
+    <div class="pt-3">
+        <a class="btn btn-primary text-white col-2" asp-action="Create">ADD NEW</a>
+        <a class="btn btn-outline-secondary float-end col-2" asp-controller="Home" asp-action="Index">Back to the Main Page</a>
+        <a class="btn btn-outline-info float-end me-3 col-2" asp-controller="Sport" asp-action="GetAllSports">VIEW SPORTS</a>
+    </div>
+    <br />
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>NAME</th>
+                <th>DESCRIPTION</th>
+                <th>REGION</th>
+                <th>PLAYERS</th>
+            </tr>
+        </thead>
+        @if (Model.Teams.Count() == 0)
+        {
+            <tbody>
+                <tr>
+                    <td>NO DATA</td>
+                    <td>NO DATA</td>
+                    <td>NO DATA</td>
+                </tr>
+            </tbody>
+        }
+        else if (Model.Teams.Count() > 0)
+        {
+            @foreach (var team in Model.Teams)
+            {
+                <tbody>
+                    <tr>
+                        <td>@team.Name</td>
+                        <td class="bg-light">@team.Description</td>
+                        <td>@team.Region</td>
+                        <td><a class="btn btn-light" asp-controller="Player" asp-action="GetPlayersInTeam" asp-route-id="@team.Id">TEAMS</a></td>
+                    </tr>
+                </tbody>
+            }
+        }
+    </table>
+</div>
+

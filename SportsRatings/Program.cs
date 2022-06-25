@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SportsRatings;
 using SportsRatings.Services;
@@ -7,8 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAutoMapper(typeof(MapperConfiguration));
+
 builder.Services.AddScoped<CategoryServices>();
 builder.Services.AddScoped<SportServices>();
+builder.Services.AddScoped<TeamServices>();
+//builder.Services.AddScoped<PlayerServices>();
 
 builder.Services.AddDbContext<SrDbContext>(option => 
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))

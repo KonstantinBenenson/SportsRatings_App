@@ -5,6 +5,8 @@ using SportsRatings.Services;
 
 namespace SportsRatings.Controllers
 {
+    [Controller]
+    [Route("{controller}/{action}")]
     public class CategoryController : Controller
     {
         private readonly CategoryServices _catService;
@@ -25,13 +27,16 @@ namespace SportsRatings.Controllers
             return View();
         }
 
-        // POST: CategoryController/Create
+
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> CreateAndRedirect(SportCategoriesModel obj)
+        //public async Task<IActionResult> CreateAndRedirect(CategoriesModel obj)
         //{
-        //    if(!ModelState.IsValid)
+        //    if (!ModelState.IsValid)
         //        return View(obj);
+        //    if (await _catService.CheckIfExistsAsync(obj.Name)) //If object exists - returns TRUE
+        //        return View(nameof(Create));
+
         //    try
         //    {
         //        await _catService.AddAsync(obj);
@@ -39,19 +44,18 @@ namespace SportsRatings.Controllers
         //    }
         //    catch
         //    {
-        //        //Logging
+        //        Logging
         //        return View();
-        //    }            
+        //    }
         //}
-                
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePOST(CategoriesModel obj)
         {
             if (!ModelState.IsValid)
                 return View();
-
-            if(await _catService.CheckIfExistsAsync(obj.Name)) //If object exists - returns TRUE
+            if (await _catService.CheckIfExistsAsync(obj.Name)) //If object exists - returns TRUE
                 return View(nameof(Create));
 
             try
@@ -67,27 +71,11 @@ namespace SportsRatings.Controllers
             }
         }
 
-        // GET: Сategories/GetAllCategories
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await _catService.GetAllCategoriesAsync();
             return View(categories);
         }
-
-        // GET: CategoryController/Category
-        //public async Task<IActionResult> GetCategoryInfo(int id)
-        //{
-        //    try
-        //    {
-        //        var categoryInfo = await _spService.GetCategoryDetails(id);
-        //        return View(categoryInfo);
-
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}                      
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -126,24 +114,25 @@ namespace SportsRatings.Controllers
                 //Logging
                 return RedirectToAction(nameof(GetAllCategories));
                 throw new ArgumentException(ex.Message);
-            }            
+            }
         }
 
         // GET: CategoryController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeletePost(int? id)
+        public async Task<IActionResult> DeletePOST(int? id)
         {
             if (id == null || id == 0)
                 return NotFound();
 
             var category = await _catService.GetCategoryAsync(id);
 
-            if(category == null)
+            if (category == null)
                 return NotFound(category);
 
             await _catService.RemoveAsync(category);
             return RedirectToAction(nameof(GetAllCategories));
-        }
-    }
+        }       
+    
+    }    
 }
