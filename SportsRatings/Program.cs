@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SportsRatings;
 using SportsRatings.Services;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,13 @@ builder.Services.AddScoped<CategoryServices>();
 builder.Services.AddScoped<SportServices>();
 builder.Services.AddScoped<TeamServices>();
 //builder.Services.AddScoped<PlayerServices>();
+
+// Redis connection
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.InstanceName = "SportsRating_"; // Instance definition for a Key
+});
 
 builder.Services.AddDbContext<SrDbContext>(option => 
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))

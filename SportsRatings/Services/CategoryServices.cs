@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SportsRatings.Models;
 using SportsRatings.Models.ViewModels;
+using SportsRatings.Caching.DistributedCache;
 
 namespace SportsRatings.Services
 {
