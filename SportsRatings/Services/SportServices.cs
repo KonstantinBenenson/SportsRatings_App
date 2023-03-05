@@ -19,11 +19,11 @@ namespace SportsRatings.Services
             return sports;
         }
 
-        public async Task<GetSportsInCategoryVM> GetAllSportsInCategoryAsync(int id)
+        public async Task<GetSportsInCategoryDTO> GetAllSportsInCategoryAsync(int id)
         {
             var sports = await _context.Sports.Where(x => x.CategoryId == id).ToListAsync();
 
-            var sportsVM = new GetSportsInCategoryVM
+            var sportsVM = new GetSportsInCategoryDTO
             {
                 Category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id),
                 Sports = sports
@@ -44,9 +44,9 @@ namespace SportsRatings.Services
 
             return sports;
         }
-        public CreateSportVM GetCategoriesList()
+        public CreateSportDTO GetCategoriesList()
         {
-            CreateSportVM sportsVM = new CreateSportVM()
+            CreateSportDTO sportsVM = new CreateSportDTO()
             {
                 Sport = new SportsModel(),
                 Categories = _context.Categories.Select(c => new SelectListItem

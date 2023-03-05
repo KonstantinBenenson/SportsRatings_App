@@ -23,7 +23,7 @@ namespace SportsRatings.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CreateSportVM obj) //
+        public IActionResult Create(CreateSportDTO obj) //
         {
             return RedirectToAction(nameof(GetTeamsInSport));
         }
@@ -35,7 +35,7 @@ namespace SportsRatings.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, CreateSportVM newObj) //
+        public IActionResult Edit(int id, CreateSportDTO newObj) //
         {
             return View();
         }

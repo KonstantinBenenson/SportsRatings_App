@@ -2,7 +2,7 @@
 
 namespace SportsRatings.Models.ViewModels
 {
-    public class CreateTeamVM
+    public class CreateTeamDTO
     {
         public TeamsModel Team { get; set; }
         public IEnumerable<SelectListItem> Regions { get; set; }

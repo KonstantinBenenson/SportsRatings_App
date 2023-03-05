@@ -19,9 +19,9 @@ namespace SportsRatings.Services
             await _context.SaveChangesAsync();
         }
 
-        public CreateTeamVM CreatTeamObjectWithSelectLists()
+        public CreateTeamDTO CreatTeamObjectWithSelectLists()
         {
-            var team = new CreateTeamVM
+            var team = new CreateTeamDTO
             {
                 Team = new TeamsModel(),
                 Sports = GetSports(),
@@ -48,11 +48,11 @@ namespace SportsRatings.Services
             });
         }
 
-        public async Task<GetTeamsInSportVM> GetTeamsInSportAsync(int id)
+        public async Task<GetTeamsInSportDTO> GetTeamsInSportAsync(int id)
         {
             var teams = await _context.Teams.Where(t => t.SportId == id).ToListAsync();
 
-            var sportsVM = new GetTeamsInSportVM
+            var sportsVM = new GetTeamsInSportDTO
             {
                 Sport = await _context.Sports.FirstOrDefaultAsync(s => s.Id == id),
                 Teams = teams
