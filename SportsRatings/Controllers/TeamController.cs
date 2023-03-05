@@ -13,19 +13,23 @@ namespace SportsRatings.Controllers
         public TeamController(TeamServices service)
         {
             _service = service;
-        }        
+        }
 
         public IActionResult Create() //+
         {
-            var teamVM =_service.CreatTeamObjectWithSelectLists();
+            var teamVM = _service.CreateTeamObjectWithSelectLists();
             return View(teamVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CreateSportDTO obj) //
+        public async Task<IActionResult> CreatePOST(CreateTeamDTO obj) //
         {
-            return RedirectToAction(nameof(GetTeamsInSport));
+            if (!ModelState.IsValid)
+                return View();
+
+            await _service.AddAsync(obj.Team);
+            return RedirectToAction("Sport", "GetAllSports");
         }
 
         public IActionResult Edit(int id) //
@@ -43,15 +47,15 @@ namespace SportsRatings.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTeamsInSport(int id)
         {
-            if(id == 0)
+            if (id == 0)
                 return BadRequest();
-            
-            var teamsWithSport = await _service.GetTeamsInSportAsync(id);
-            
-            if (teamsWithSport is null)
+
+            var teamsInSport = await _service.GetTeamsInSportAsync(id);
+
+            if (teamsInSport is null)
                 return NotFound();
-            
-            return View(teamsWithSport);
+
+            return View(teamsInSport);
         }
 
         public ActionResult Details(int id)

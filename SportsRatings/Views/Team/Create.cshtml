@@ -1,6 +1,6 @@
 ﻿@model SportsRatings.Models.ViewModels.CreateTeamDTO
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "ADD New Team";
 }
 <div>
     <h1>Create new TEAM</h1>
@@ -9,7 +9,7 @@
 <br />
 <div class="containter-lg-12">
     <div class="col-lg-6">
-        <form method="post" action="Create">
+        <form method="post" action="CreatePOST">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label" asp-for="Team.Name"></label>
@@ -17,15 +17,15 @@
                 <span asp-validation-for="Team.Name"></span>
             </div>
             <div class="form-group col-lg-6 mt-2">
-                <label class="control-label" asp-for="Team.RegionId"></label>
-                <select class="form-select" asp-for="Team.RegionId" asp-items="Model.Regions">
-                    <option selected disabled>-- Choose a Region --</option>
+                <label class="control-label" asp-for="Team.SportId"></label>
+                <select class="form-select" asp-for="Team.SportId" asp-items="Model.Sports">
+                    <option selected disabled>-- Choose a Sport --</option>
                 </select>
                 <span asp-validation-for="Team.RegionId"></span>
             </div>
             <div class="form-group col-lg-6 mt-2">
-                <label class="control-label" asp-for="Team.SportId"></label>
-                <select class="form-select" asp-for="Team.SportId" asp-items="Model.Sports">
+                <label class="control-label" asp-for="Team.RegionId"></label>
+                <select class="form-select" asp-for="Team.RegionId" asp-items="Model.Regions">
                     <option selected disabled>-- Choose a Region --</option>
                 </select>
                 <span asp-validation-for="Team.SportId"></span>
@@ -39,7 +39,7 @@
             <br />
             <br />
             <div>
-                <a asp-action="GetAllTeams" class="btn btn-outline-info col-lg-4 me-3">VIEW TEAMS</a>
+                <a asp-controller="Sport" asp-action="GetAllSports" class="btn btn-outline-info col-lg-4 me-3">VIEW SPORTS</a>
                 <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary col-lg-4">Back to the Main Page</a>
             </div>
         </form>

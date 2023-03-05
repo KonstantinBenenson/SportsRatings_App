@@ -19,7 +19,7 @@ namespace SportsRatings.Services
             await _context.SaveChangesAsync();
         }
 
-        public CreateTeamDTO CreatTeamObjectWithSelectLists()
+        public CreateTeamDTO CreateTeamObjectWithSelectLists()
         {
             var team = new CreateTeamDTO
             {
@@ -30,8 +30,12 @@ namespace SportsRatings.Services
             return team;
         }
 
+        /// <summary>
+        /// For SelectListItem sport`s collection. 
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<SelectListItem> GetSports()
-        {
+        {            
             return _context.Sports.Select(s => new SelectListItem
             {
                 Text = s.Name,
@@ -60,5 +64,18 @@ namespace SportsRatings.Services
 
             return sportsVM;
         }
+
+        //public async Task<GetTeamsInSportDTO> GetAllSportsAsync(int id)
+        //{
+        //    var teams = await _context.Teams.Where(t => t.SportId == id).ToListAsync();
+
+        //    var sportsVM = new GetTeamsInSportDTO
+        //    {
+        //        Sport = await _context.Sports.FirstOrDefaultAsync(s => s.Id == id),
+        //        Teams = teams
+        //    };
+
+        //    return sportsVM;
+        //}
     }
 }

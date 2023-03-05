@@ -1,4 +1,4 @@
-﻿namespace SportsRatings.Models
+﻿namespace SportsRatings.Models.Interfaces
 {
     public interface IModel
     {

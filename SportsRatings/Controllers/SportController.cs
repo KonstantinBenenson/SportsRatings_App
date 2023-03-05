@@ -57,7 +57,7 @@ namespace SportsRatings.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult EditPOST(int id, IFormCollection collection)
         {
             return View();
         }
@@ -70,7 +70,7 @@ namespace SportsRatings.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeletePost(int id)
+        public ActionResult DeletePOST(int id)
         {
             return View();
         }
