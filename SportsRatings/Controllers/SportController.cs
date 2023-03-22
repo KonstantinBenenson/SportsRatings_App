@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SportsRatings.Interfaces;
 using SportsRatings.Models;
 using SportsRatings.Models.ViewModels;
 using SportsRatings.Services;
@@ -10,8 +11,8 @@ namespace SportsRatings.Controllers
     [Route("{controller}/{action}")]
     public class SportController : Controller
     {
-        private readonly SportServices _sService;
-        public SportController(SportServices sService) //добавление сервиса для категорий ради наполнения SelectListItem, надо переделать?
+        private readonly ISportInterface _sService;
+        public SportController(ISportInterface sService) //добавление сервиса для категорий ради наполнения SelectListItem, надо переделать?
         {
             _sService = sService;
         }

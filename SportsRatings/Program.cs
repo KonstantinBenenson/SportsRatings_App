@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SportsRatings;
+using SportsRatings.Interfaces;
 using SportsRatings.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +11,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddAutoMapper(typeof(MapperConfiguration));
 
-builder.Services.AddScoped<CategoryServices>();
-builder.Services.AddScoped<SportServices>();
+builder.Services.AddScoped<ICategoryInterface, CategoryServices>();
+builder.Services.AddScoped<ISportInterface, SportServices>();
 builder.Services.AddScoped<TeamServices>();
 //builder.Services.AddScoped<PlayerServices>();
 

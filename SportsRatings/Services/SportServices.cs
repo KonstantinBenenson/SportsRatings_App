@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SportsRatings.Interfaces;
 using SportsRatings.Models;
 using SportsRatings.Models.ViewModels;
 
 namespace SportsRatings.Services
 {
-    public class SportServices
+    public class SportServices : ISportInterface
     {
         private readonly SrDbContext _context;
         public SportServices(SrDbContext context)

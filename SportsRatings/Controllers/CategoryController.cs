@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SportsRatings.Interfaces;
 using SportsRatings.Models;
 using SportsRatings.Services;
 
@@ -9,18 +10,17 @@ namespace SportsRatings.Controllers
     [Route("{controller}/{action}")]
     public class CategoryController : Controller
     {
-        private readonly CategoryServices _catService;
-        private readonly SportServices _spService;
+        private readonly ICategoryInterface _catService;
+        private readonly ISportInterface _spService;
 
         [TempData]
         private string Message { get; set; } = string.Empty;
 
-        public CategoryController(CategoryServices cs, SportServices ss)
+        public CategoryController(ICategoryInterface cs, ISportInterface ss)
         {
             _catService = cs;
             _spService = ss;
         }
-
 
         public ActionResult Create()
         {
