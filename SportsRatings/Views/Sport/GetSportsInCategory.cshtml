@@ -20,22 +20,26 @@
         <table class="table table-hover col-lg-4">
             <thead>
                 <tr>
-                    <th>Sport Name</th>
+                    <th>SPORT</th>
                 </tr>
             </thead>
             <tbody>
                 @if (Model.Sports.Count() > 0)
                 {
-                    <tr>
-                        @foreach (var item in Model.Sports)
-                        {
+                    @foreach (var item in Model.Sports)
+                    {
+                        <tr>
                             <td>@item.Name</td>
-                        }
-                    </tr>
+                            <td>@item.Description</td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>
     }
+    <div>
+        <button type="button"></button>
+    </div>
     <br />
     <br />
     <div class="col-lg-8">

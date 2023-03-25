@@ -11,7 +11,7 @@
 <div class="container-lg">
     <div class="row ms-4">
         <div class="col-lg-8">
-            <form method="post" asp-action="Create">
+            <form method="post" asp-action="CreatePost">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Sport.Name" class="control-label"></label>
@@ -54,6 +54,6 @@
 </div>
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -41,6 +41,7 @@ namespace SportsRatings.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ActionName("CreatePost")]
         public async Task<IActionResult> Create(CreateSportDTO obj) //Почему ModelState выдает False, если все условия валидации соблюдены?
         {
             //if (!ModelState.IsValid)

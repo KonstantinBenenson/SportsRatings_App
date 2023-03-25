@@ -51,7 +51,8 @@ namespace SportsRatings.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreatePOST(CategoriesModel obj)
+        [ActionName("CreatePost")]
+        public async Task<IActionResult> Create(CategoriesModel obj)
         {
             if (!ModelState.IsValid)
                 return View();

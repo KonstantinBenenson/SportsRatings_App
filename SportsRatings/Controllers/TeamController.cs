@@ -6,7 +6,7 @@ using SportsRatings.Services;
 namespace SportsRatings.Controllers
 {
     [Controller]
-    [Route("[controller]/[action]")]
+    [Route("{controller}/{action}")]
     public class TeamController : Controller
     {
         private readonly TeamServices _service;
@@ -23,10 +23,11 @@ namespace SportsRatings.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreatePOST(CreateTeamDTO obj) //
+        [ActionName("CreatePost")]
+        public async Task<IActionResult> Create(CreateTeamDTO obj) //
         {
-            if (!ModelState.IsValid)
-                return View();
+            //if (!ModelState.IsValid)
+            //    return View();
 
             await _service.AddAsync(obj.Team);
             return RedirectToAction("Sport", "GetAllSports");

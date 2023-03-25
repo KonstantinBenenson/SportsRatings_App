@@ -9,26 +9,32 @@
 <br />
 <div class="containter-lg-12">
     <div class="col-lg-6">
-        <form method="post" action="CreatePOST">
+        <form method="post" asp-action="CreatePost">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label" asp-for="Team.Name"></label>
                 <input class="form-control" asp-for="Team.Name" />
                 <span asp-validation-for="Team.Name"></span>
             </div>
+            <div class="form-group my-2">
+                <label asp-for="Team.Description" class="control-label"></label>
+                <textarea asp-for="Team.Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Team.Description" class="text-danger"></span>
+            </div>
+            <!--DROPDOWN MENUS-->
             <div class="form-group col-lg-6 mt-2">
                 <label class="control-label" asp-for="Team.SportId"></label>
                 <select class="form-select" asp-for="Team.SportId" asp-items="Model.Sports">
                     <option selected disabled>-- Choose a Sport --</option>
                 </select>
-                <span asp-validation-for="Team.RegionId"></span>
-            </div>
+                <span asp-validation-for="Team.SportId"></span>
+            </div>       
             <div class="form-group col-lg-6 mt-2">
                 <label class="control-label" asp-for="Team.RegionId"></label>
                 <select class="form-select" asp-for="Team.RegionId" asp-items="Model.Regions">
                     <option selected disabled>-- Choose a Region --</option>
                 </select>
-                <span asp-validation-for="Team.SportId"></span>
+                <span asp-validation-for="Team.RegionId"></span>
             </div>
             <br />
             <br />
