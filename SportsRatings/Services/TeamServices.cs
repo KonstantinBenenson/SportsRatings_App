@@ -19,7 +19,11 @@ namespace SportsRatings.Services
             await _context.SaveChangesAsync();
         }
 
-        public CreateTeamDTO CreatTeamObjectWithSelectLists()
+        /// <summary>
+        /// Allows you to transfer the list of Regions and Sports to the View, making it possible to use this on the front-side of the App (for the dropdown windows, for example).
+        /// </summary>
+        /// <returns></returns>
+        public CreateTeamDTO CreateTeamObjectWithSelectLists()
         {
             var team = new CreateTeamDTO
             {
@@ -30,8 +34,12 @@ namespace SportsRatings.Services
             return team;
         }
 
+        /// <summary>
+        /// For SelectListItem Sport`s collection. 
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<SelectListItem> GetSports()
-        {
+        {            
             return _context.Sports.Select(s => new SelectListItem
             {
                 Text = s.Name,
@@ -39,6 +47,10 @@ namespace SportsRatings.Services
             });
         }
 
+        /// <summary>
+        /// For SelectListItem Region`s collection. 
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<SelectListItem> GetRegions()
         {
             return _context.Regions.Select(r => new SelectListItem
@@ -60,5 +72,18 @@ namespace SportsRatings.Services
 
             return sportsVM;
         }
+
+        //public async Task<GetTeamsInSportDTO> GetAllSportsAsync(int id)
+        //{
+        //    var teams = await _context.Teams.Where(t => t.SportId == id).ToListAsync();
+
+        //    var sportsVM = new GetTeamsInSportDTO
+        //    {
+        //        Sport = await _context.Sports.FirstOrDefaultAsync(s => s.Id == id),
+        //        Teams = teams
+        //    };
+
+        //    return sportsVM;
+        //}
     }
 }
