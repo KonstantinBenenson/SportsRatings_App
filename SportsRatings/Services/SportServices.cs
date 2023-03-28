@@ -93,11 +93,11 @@ namespace SportsRatings.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> UpdateAsync(int id, SportModel sport) // Решить, нужен ли DTO для обновления/получения или обойтись обычным SportModel ???
+        public async Task<bool> UpdateAsync(int? id, SportModel sport) // Решить, нужен ли DTO для обновления/получения или обойтись обычным SportModel ???
         {
             if (sport is not null)
             {
-                sport.Id = id;
+                sport.Id = (int)id;
                 _context.Sports.Update(sport);
                 await _context.SaveChangesAsync();
                 return true;
@@ -113,10 +113,14 @@ namespace SportsRatings.Services
 
         //}
 
-        public async Task RemoveAsync(SportModel obj)
+        public async Task RemoveAsync(int? id)
         {
-            _context.Sports.Remove(obj);
-            await _context.SaveChangesAsync();
+            if (id is not null)
+            {
+                var sport = await _context.Sports.FindAsync(id);
+                _context.Sports.Remove(sport);
+                await _context.SaveChangesAsync();
+            }
         }
 
         //Checks if database contains an object with the given name. 

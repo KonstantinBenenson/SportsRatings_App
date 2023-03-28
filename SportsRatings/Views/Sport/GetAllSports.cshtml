@@ -50,6 +50,10 @@
                     </td>
                     <td>
                         <a class="btn btn-secondary mb-1 offset-2 col-8" asp-controller="Sport" asp-action="Edit" asp-route-id="@sport.Id">Edit</a>
+                        <form method="post" asp-action="DeletePost">
+                            <input asp-for="@sport.Id" hidden/>
+                            <input type="submit" class="btn btn-danger offset-2 offset-2 col-8" value="Delete" />
+                        </form>
                     </td>
                 </tr>
             </tbody>

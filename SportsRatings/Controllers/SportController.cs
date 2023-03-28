@@ -79,17 +79,26 @@ namespace SportsRatings.Controllers
             return View(sport);
         }
 
+        //public async Task<IActionResult> Delete(int? id) 
+        //{
+        //    if (id is not null)
+        //    {
+        //        var sport = await _sService?.GetSportAsync(id); 
+        //        return RedirectToAction(nameof(Delete), sport.SportModel);
+        //    }
+        //    return RedirectToAction(nameof(GetAllSports));
+        //}
 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        [HttpPost]
+        [HttpPost("/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeletePOST(int id)
+        [ActionName("DeletePost")]
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View();
+            if (id is null)
+                return NotFound();
+
+            await _sService.RemoveAsync(id);
+            return RedirectToAction(nameof(GetAllSports));
         }
     }
 }

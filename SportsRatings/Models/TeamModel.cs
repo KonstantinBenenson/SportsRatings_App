@@ -18,12 +18,12 @@ namespace SportsRatings.Models
         [DisplayName("Region")]
         public int RegionId { get; set; }
         [ForeignKey("RegionId")]
-        public RegionModel Region { get; set; } = null!;
+        public RegionModel Region { get; set; }
 
         [DisplayName("Sport")]
         public int SportId { get; set; }
         [ForeignKey("SportId")]
-        public SportModel Sport { get; set; } = null!;
+        public SportModel Sport { get; set; }
 
         public IEnumerable<PlayerModel> Players { get; set; }
     }
