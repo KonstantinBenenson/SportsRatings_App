@@ -1,8 +1,8 @@
-﻿namespace SportsRatings.Models.ViewModels
+﻿namespace SportsRatings.Models.DTO
 {
     public class GetSportsInCategoryDTO
     {
-        public CategoriesModel Category { get; set; } = null!;
-        public IEnumerable<SportsModel> Sports { get; set; } = null!;
+        public CategoryModel Category { get; set; } = null!;
+        public IEnumerable<SportModel> Sports { get; set; } = null!;
     }
 }

@@ -4,32 +4,32 @@ using SportsRatings.Models;
 
 namespace SportsRatings.Data.Configurations
 {
-    public class RegionsConfiguration : IEntityTypeConfiguration<RegionsModel>
+    public class RegionsConfiguration : IEntityTypeConfiguration<RegionModel>
     {
-        public void Configure(EntityTypeBuilder<RegionsModel> builder)
+        public void Configure(EntityTypeBuilder<RegionModel> builder)
         {
             builder.HasData(
-                new RegionsModel
+                new RegionModel
                 {
                     Id = 1,
                     Name = "NA"
                 },
-                new RegionsModel
+                new RegionModel
                 {
                     Id = 2,
                     Name = "EU"
                 },
-                new RegionsModel
+                new RegionModel
                 {
                     Id = 3,
                     Name = "MINA"
                 },
-                new RegionsModel
+                new RegionModel
                 {
                     Id = 4,
                     Name = "SAM"
                 },
-                new RegionsModel
+                new RegionModel
                 {
                     Id = 5,
                     Name = "OCE"

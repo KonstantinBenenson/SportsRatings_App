@@ -22,10 +22,10 @@ namespace SportsRatings
             }
         }
 
-        public DbSet<CategoriesModel> Categories { get; set; }
-        public DbSet<SportsModel> Sports { get; set; }
-        public DbSet<TeamsModel> Teams { get; set; }
-        public DbSet<PlayersModel> Players { get; set; }
-        public DbSet<RegionsModel> Regions { get; set; }
+        public DbSet<CategoryModel> Categories { get; set; }
+        public DbSet<SportModel> Sports { get; set; }
+        public DbSet<TeamModel> Teams { get; set; }
+        public DbSet<PlayerModel> Players { get; set; }
+        public DbSet<RegionModel> Regions { get; set; }
     }
 }

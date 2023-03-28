@@ -52,7 +52,7 @@ namespace SportsRatings.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("CreatePost")]
-        public async Task<IActionResult> Create(CategoriesModel obj)
+        public async Task<IActionResult> Create(CategoryModel obj)
         {
             if (!ModelState.IsValid)
                 return View();
@@ -93,7 +93,7 @@ namespace SportsRatings.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPOST(int id, CategoriesModel obj)
+        public async Task<IActionResult> EditPOST(int id, CategoryModel obj)
         {
             await _catService.UpdateAsync(id, obj);
             return RedirectToAction(nameof(GetAllCategories)); //вывод сообщения в клиент об успешном обновлении ИЛИ ошибке?

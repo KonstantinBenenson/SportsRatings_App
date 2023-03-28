@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SportsRatings.Models;
-using SportsRatings.Models.ViewModels;
+using SportsRatings.Models.DTO;
 
 namespace SportsRatings.Services
 {
@@ -13,19 +13,19 @@ namespace SportsRatings.Services
             _context = context;
         }
 
-        public async Task<CategoriesModel> GetCategoryAsync(int? id)
+        public async Task<CategoryModel> GetCategoryAsync(int? id)
         {
             var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
             return category;
         }
 
-        public async Task<IEnumerable<CategoriesModel>> GetAllCategoriesAsync()
+        public async Task<IEnumerable<CategoryModel>> GetAllCategoriesAsync()
         {
             var categories = await _context.Categories.ToListAsync();
             return categories;
         }      
 
-        public async Task AddAsync(CategoriesModel obj)
+        public async Task AddAsync(CategoryModel obj)
         {
             if(obj == null)
                 throw new ArgumentNullException(nameof(obj));
@@ -34,14 +34,14 @@ namespace SportsRatings.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(int id, CategoriesModel newObj)
+        public async Task UpdateAsync(int id, CategoryModel newObj)
         {
             //var obj = await GetCategoryAsync(id);
             _context.Categories.Update(newObj);
             await _context.SaveChangesAsync();
         }
 
-        public async Task RemoveAsync(CategoriesModel obj)
+        public async Task RemoveAsync(CategoryModel obj)
         {
             _context.Categories.Remove(obj);
             await _context.SaveChangesAsync();

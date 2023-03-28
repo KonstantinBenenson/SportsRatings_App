@@ -5,7 +5,7 @@ using SportsRatings.Models.Interfaces;
 
 namespace SportsRatings.Models
 {
-    public class TeamsModel: IEntitiesModel
+    public class TeamModel
     {
         [Key]
         public int Id { get; set; }
@@ -18,13 +18,13 @@ namespace SportsRatings.Models
         [DisplayName("Region")]
         public int RegionId { get; set; }
         [ForeignKey("RegionId")]
-        public RegionsModel Region { get; set; } = null!;
+        public RegionModel Region { get; set; } = null!;
 
         [DisplayName("Sport")]
         public int SportId { get; set; }
         [ForeignKey("SportId")]
-        public SportsModel Sport { get; set; } = null!;
+        public SportModel Sport { get; set; } = null!;
 
-        public IEnumerable<PlayersModel> Players { get; set; }
+        public IEnumerable<PlayerModel> Players { get; set; }
     }
 }

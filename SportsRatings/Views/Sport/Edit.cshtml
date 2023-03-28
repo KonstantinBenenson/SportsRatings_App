@@ -1,0 +1,60 @@
+﻿@model SportsRatings.Models.DTO.GetOrUpdateSportDTO
+
+@{
+    ViewData["Title"] = "UPDATE Sport";
+}
+
+<div class="container-lg-12">
+    <h1 class="text-info">UPDATE Sport</h1>
+</div>
+<hr />
+<div class="container-lg">
+    <div class="row ms-4">
+        <div class="col-lg-8">
+            <form method="post" asp-action="EditPost" asp-route-id="@Model.SportModel.Id">
+                <input type="hidden" value="@Model.SportModel.Id" name="SportId" />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="SportModel.Name" class="control-label"></label>
+                    <input asp-for="SportModel.Name" class="form-control" />
+                    <span asp-validation-for="SportModel.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group my-2">
+                    <label asp-for="SportModel.PersonalRate" class="control-label"></label>
+                    <input asp-for="SportModel.PersonalRate" class="form-control" />
+                    <span asp-validation-for="SportModel.PersonalRate" class="text-danger"></span>
+                </div>
+                <div class="form-group my-2">
+                    <label asp-for="SportModel.Description" class="control-label"></label>
+                    <textarea asp-for="SportModel.Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="SportModel.Description" class="text-danger"></span>
+                </div>
+                <!--DropDown for Categories-->
+                <div class="form-group col-lg-4">
+                    <label asp-for="SportModel.CategoryId" class="control-label mb-1"></label>
+                    <select asp-for="SportModel.CategoryId" class="form-select" asp-items="Model.Categories">
+                        <option selected disabled>-- Choose a Category --</option>
+                    </select>
+                    <span asp-validation-for="SportModel.CategoryId" class="text-danger"></span>
+                </div>
+                <br />
+                <br />
+                <!--Buttons-->
+                <div class="form-group">
+                    <input type="submit" value="UPDATE" class="btn btn-primary col-lg-4" />
+                </div>
+                <br />
+                <br />
+                <div>
+                    <a asp-action="GetAllSports" class="btn btn-outline-info col-lg-4 me-3">VIEW SPORTS</a>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary col-lg-4">Back to the Main Page</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

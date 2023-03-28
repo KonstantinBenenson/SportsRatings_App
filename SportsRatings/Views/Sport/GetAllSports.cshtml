@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SportsModel>
+﻿@model IEnumerable<SportModel>
 
 @{
     ViewData["Title"] = "Sports";
@@ -23,6 +23,7 @@
             <th>DESCRIPTION</th>
             <th>CATEGORIES</th>
             <th>TEAMS</th>
+            <th>ACTIONS</th>
         </tr>
     </thead>
     @if (Model.Count() == 0)
@@ -44,7 +45,12 @@
                     <td>@sport.Name</td>
                     <td class="bg-light">@sport.Description</td>
                     <td>@sport.Category.Name</td>
-                    <td><a class="btn btn-light" asp-controller="Team" asp-action="GetTeamsInSport" asp-route-id="@sport.Id">TEAMS</a></td>
+                    <td>
+                        <a class="btn btn-light" asp-controller="Team" asp-action="GetTeamsInSport" asp-route-id="@sport.Id">TEAMS</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary mb-1 offset-2 col-8" asp-controller="Sport" asp-action="Edit" asp-route-id="@sport.Id">Edit</a>
+                    </td>
                 </tr>
             </tbody>
         }

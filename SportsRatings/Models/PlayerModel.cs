@@ -5,11 +5,14 @@ using SportsRatings.Models.Interfaces;
 
 namespace SportsRatings.Models
 {
-    public class PlayersModel : IEntitiesModel
+    public class PlayerModel : PlayerBase
     {
         [Key]
         public int Id { get; set; } 
+    }
 
+    public class PlayerBase
+    {
         [Required]
         public string Name { get; set; }
 
@@ -31,15 +34,14 @@ namespace SportsRatings.Models
         //Relations
         public int? RegionId { get; set; }
         [ForeignKey("RegionId")]
-        public RegionsModel Region { get; set; }
+        public RegionModel Region { get; set; }
 
         public int TeamId { get; set; }
         [ForeignKey("TeamId")]
-        public TeamsModel Team { get; set; }
+        public TeamModel Team { get; set; }
 
         public int SportId { get; set; }
         [ForeignKey("SportId")]
-        public SportsModel Sport { get; set; }
-
+        public SportModel Sport { get; set; }
     }
 }

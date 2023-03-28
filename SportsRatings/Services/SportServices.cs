@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SportsRatings.Models;
-using SportsRatings.Models.ViewModels;
+using SportsRatings.Models.DTO;
 
 namespace SportsRatings.Services
 {
@@ -13,7 +13,7 @@ namespace SportsRatings.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<SportsModel>> GetAllSportsAsync()
+        public async Task<IEnumerable<SportModel>> GetAllSportsAsync()
         {
             var sports = await _context.Sports.Include(x => x.Category).ToListAsync();
             return sports;
@@ -35,7 +35,7 @@ namespace SportsRatings.Services
             return sportsVM;
         }
 
-        public async Task<SportsModel> GetSportDetailsAsync(int id) //?
+        public async Task<SportModel> GetSportDetailsAsync(int id) //?
         {
             var sports = await _context.Sports.FindAsync(id);
 
@@ -44,35 +44,67 @@ namespace SportsRatings.Services
 
             return sports;
         }
+
         public CreateSportDTO GetCategoriesList()
         {
-            CreateSportDTO sportsVM = new CreateSportDTO()
+            return new CreateSportDTO()
             {
-                Sport = new SportsModel(),
-                Categories = _context.Categories.Select(c => new SelectListItem
-                {
-                    Text = c.Name,
-                    Value = c.Id.ToString()
-                })
+                Sport = new SportModel(),
+                Categories = GetSelectListItem()
             };
-            return sportsVM;
         }
 
-        public async Task<SportsModel> GetSportAsync(int? id)
+        private IQueryable<SelectListItem> GetSelectListItem()
         {
-            var sport = await _context.Sports.FirstOrDefaultAsync(c => c.Id == id);
+            return _context.Categories.Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString()
+            });
+        }
+
+        public async Task<GetOrUpdateSportDTO> GetSportAsync(int? id)
+        {
+            var sport = await _context.Sports.FindAsync(id);
 
             if (sport == null)
                 throw new ArgumentNullException(nameof(sport));
 
-            return sport;
+            return ToDTO(sport);
         }
 
-        public async Task AddAsync(SportsModel obj)
+        /// <summary>
+        /// Transforms a normal SportModel object to the GetOrUpdateSportDTO Object.
+        /// </summary>
+        /// <param name="sport"></param>
+        /// <returns></returns>
+        private GetOrUpdateSportDTO ToDTO(SportModel sport)
+        {
+            return new GetOrUpdateSportDTO()
+            {
+                SportModel = sport,
+                Categories = GetCategoriesList().Categories
+            };
+        }
+
+        public async Task AddAsync(SportModel obj)
         {
             await _context.Sports.AddAsync(obj);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<bool> UpdateAsync(int id, SportModel sport) // Решить, нужен ли DTO для обновления/получения или обойтись обычным SportModel ???
+        {
+            if (sport is not null)
+            {
+                sport.Id = id;
+                _context.Sports.Update(sport);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
 
         //public async Task AddToCategoryAsync(int id, SportsModel obj)
         //{
@@ -81,7 +113,7 @@ namespace SportsRatings.Services
 
         //}
 
-        public async Task RemoveAsync(SportsModel obj)
+        public async Task RemoveAsync(SportModel obj)
         {
             _context.Sports.Remove(obj);
             await _context.SaveChangesAsync();

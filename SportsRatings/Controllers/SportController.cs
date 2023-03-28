@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SportsRatings.Models;
-using SportsRatings.Models.ViewModels;
+using SportsRatings.Models.DTO;
 using SportsRatings.Services;
 
 namespace SportsRatings.Controllers
@@ -27,7 +27,7 @@ namespace SportsRatings.Controllers
         {
             var sportsVM = await _sService.GetAllSportsInCategoryAsync(id);
 
-            if(sportsVM == null)
+            if (sportsVM == null)
                 return RedirectToAction("GetAllCategories", "Category");
 
             return View(sportsVM);
@@ -51,16 +51,32 @@ namespace SportsRatings.Controllers
             return RedirectToAction(nameof(GetAllSports));
         }
 
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            return View();
+            if (id == null || id == 0)
+                return NotFound();
+
+            var sport = await _sService.GetSportAsync(id);
+
+            if (sport is null)
+                return NotFound();
+
+            return View(sport);
         }
 
-        [HttpPost]
+        [HttpPost("/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPOST(int id, IFormCollection collection)
+        [ActionName("EditPost")]
+        public async Task<IActionResult> Edit(int id, GetOrUpdateSportDTO sport)
         {
-            return View();
+            if (ModelState.IsValid && sport is not null)
+            {
+                await _sService.UpdateAsync(id, sport.SportModel);
+                return RedirectToAction(nameof(GetAllSports));
+            }
+
+            ModelState.AddModelError("ModelStateError", "Возникла ошибка при обновлении. Попробуйте еще раз.");
+            return View(sport);
         }
 
 

@@ -5,7 +5,7 @@ using SportsRatings.Models.Interfaces;
 
 namespace SportsRatings.Models
 {
-    public class RegionsModel: IEntitiesModel
+    public class RegionModel
     {
         [Key]
         public int Id { get; set; }

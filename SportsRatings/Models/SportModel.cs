@@ -5,15 +5,18 @@ using SportsRatings.Models.Interfaces;
 
 namespace SportsRatings.Models
 {
-    public class SportsModel : IEntitiesModel
+    public class SportModel : SportBase
     {
         [Key]
-        public int Id { get; set; }
+        public int Id { get; set; }        
+    }
 
+    public class SportBase 
+    {
         [Required]
         public string Name { get; set; } = null!;
 
-        public string Description { get; set; } 
+        public string Description { get; set; }
 
         [Range(1, 5, ErrorMessage = "Value must be beetween 1 and 5")]
         [DisplayName("Rate of Sport")]
@@ -23,8 +26,8 @@ namespace SportsRatings.Models
 
         [DisplayName("Category")]
         public int CategoryId { get; set; }
-       
+
         [ForeignKey("CategoryId")]
-        public CategoriesModel Category { get; set; } = null!;
+        public CategoryModel Category { get; set; } = null!;
     }
 }

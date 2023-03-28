@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SportsRatings.Models.ViewModels;
+using SportsRatings.Models.DTO;
 using SportsRatings.Services;
 
 namespace SportsRatings.Controllers
@@ -40,7 +40,8 @@ namespace SportsRatings.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, CreateSportDTO newObj) //
+        [ActionName("EditPost")]
+        public IActionResult EditPost(int id, CreateSportDTO newObj) //
         {
             return View();
         }

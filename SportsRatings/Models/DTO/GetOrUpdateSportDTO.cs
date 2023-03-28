@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using SportsRatings.Models.Interfaces;
 
 namespace SportsRatings.Models.DTO
 {
-    public class CreateSportDTO 
+    public class GetOrUpdateSportDTO
     {
-        public SportModel Sport { get; set; } = null!;       
+        public SportModel SportModel { get; set; } = null!;     
         public IEnumerable<SelectListItem> Categories { get; set; } = null!;
     }
 }

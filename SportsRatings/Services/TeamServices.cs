@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SportsRatings.Models;
-using SportsRatings.Models.ViewModels;
+using SportsRatings.Models.DTO;
 
 namespace SportsRatings.Services
 {
@@ -13,7 +13,7 @@ namespace SportsRatings.Services
             _context = context;
         }
 
-        public async Task AddAsync(TeamsModel team)
+        public async Task AddAsync(TeamModel team)
         {
             await _context.Teams.AddAsync(team);
             await _context.SaveChangesAsync();
@@ -27,7 +27,7 @@ namespace SportsRatings.Services
         {
             var team = new CreateTeamDTO
             {
-                Team = new TeamsModel(),
+                Team = new TeamModel(),
                 Sports = GetSports(),
                 Regions = GetRegions()
             };
