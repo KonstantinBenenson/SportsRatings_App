@@ -113,11 +113,13 @@ namespace SportsRatings.Services
 
         //}
 
-        public async Task RemoveAsync(int? id)
+        public async Task RemoveAsync(int? id, GetOrUpdateSportDTO sportDTO)
         {
-            if (id is not null)
+            if (id is not null && sportDTO is not null)
             {
-                var sport = await _context.Sports.FindAsync(id);
+                var sport = sportDTO.SportModel;
+                sport.Id = (int)id;
+
                 _context.Sports.Remove(sport);
                 await _context.SaveChangesAsync();
             }

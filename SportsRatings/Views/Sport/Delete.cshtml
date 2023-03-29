@@ -1,0 +1,56 @@
+﻿@model SportsRatings.Models.DTO.GetOrUpdateSportDTO
+
+@{
+    ViewData["Title"] = "UPDATE Sport";
+}
+
+<div class="container-lg-12">
+    <h1 class="text-info">UPDATE Sport</h1>
+</div>
+<hr />
+<div class="container-lg">
+    <div class="row ms-4">
+        <div class="col-lg-8">
+            <form method="post" asp-action="DeletePost" asp-route-id="@Model.SportModel.Id">
+                <input type="hidden" value="@Model.SportModel.Id" name="SportId" />
+                <div class="form-group">
+                    <label asp-for="SportModel.Name" class="control-label"></label>
+                    <input asp-for="SportModel.Name" disabled class="form-control" />
+                </div>
+                <div class="form-group my-2">
+                    <label asp-for="SportModel.PersonalRate" class="control-label"></label>
+                    <input asp-for="SportModel.PersonalRate" disabled class="form-control" />
+                </div>
+                <div class="form-group my-2">
+                    <label asp-for="SportModel.Description" class="control-label"></label>
+                    <textarea asp-for="SportModel.Description" disabled class="form-control" rows="3"></textarea>
+                </div>
+                <!--DropDown for Categories-->
+                <div class="form-group col-lg-4">
+                    <label asp-for="SportModel.CategoryId" class="control-label mb-1"></label>
+                    <select asp-for="SportModel.CategoryId" disabled class="form-select" asp-items="Model.Categories">
+                        <option selected disabled>-- Choose a Category --</option>
+                    </select>
+                </div>
+                <br />
+                <br />
+                <!--Buttons-->
+                <div class="form-group">
+                    <h7 class="text-danger fst-italic border-1 mb-2">Pressing this button will remove the record. Are you sure?</h7></br>
+                    <input type="submit" value="DELETE" class="btn btn-danger col-lg-4" />
+                </div>
+                <br />
+                <br />
+                <div>
+                    <a asp-action="GetAllSports" class="btn btn-outline-info col-lg-4 me-3">VIEW SPORTS</a>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary col-lg-4">Back to the Main Page</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

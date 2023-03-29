@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SportsRatings.Models;
 using SportsRatings.Models.DTO;
 using SportsRatings.Services;
+using System.Composition;
 
 namespace SportsRatings.Controllers
 {
@@ -79,25 +80,25 @@ namespace SportsRatings.Controllers
             return View(sport);
         }
 
-        //public async Task<IActionResult> Delete(int? id) 
-        //{
-        //    if (id is not null)
-        //    {
-        //        var sport = await _sService?.GetSportAsync(id); 
-        //        return RedirectToAction(nameof(Delete), sport.SportModel);
-        //    }
-        //    return RedirectToAction(nameof(GetAllSports));
-        //}
-
-        [HttpPost("/{id}")]
-        [ValidateAntiForgeryToken]
-        [ActionName("DeletePost")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id is null)
+            if (id is not null)
+            {
+                var sport = await _sService?.GetSportAsync(id);
+                return View(sport);
+            }
+            return RedirectToAction(nameof(GetAllSports));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletePost(int? id)
+        {
+            if (!ModelState.IsValid)
                 return NotFound();
 
-            await _sService.RemoveAsync(id);
+            var sport = await _sService?.GetSportAsync(id);
+            await _sService.RemoveAsync(id, sport);
             return RedirectToAction(nameof(GetAllSports));
         }
     }
