@@ -62,7 +62,7 @@ namespace SportsRatings.Controllers
             try
             {
                 await _catService.AddAsync(obj);
-                TempData["Success"] = $"New category {obj.Name} was successfully created."; //?????????
+                TempData["Success"] = $"New category {obj.Name} was successfully created."; 
                 return RedirectToAction(nameof(GetAllCategories));
             }
             catch
